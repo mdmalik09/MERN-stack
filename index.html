@@ -2,93 +2,130 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Rock Paper Scissors - Simple</title>
+  <title>Rock • Paper • Scissors</title>
   
   <style>
     body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      background-color: #f0f0f0;
       margin: 0;
-      padding: 40px;
+      min-height: 100vh;
+      background: #0f0f23;
+      color: #e0e0ff;
+      font-family: system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
     }
 
     h1 {
-      color: #333;
-      margin-bottom: 40px;
+      font-size: 2.6rem;
+      margin: 0;
+      letter-spacing: 4px;
+      color: #a78bfa;
+      text-transform: uppercase;
     }
 
-    .buttons {
+    .subtitle {
+      font-size: 1.1rem;
+      opacity: 0.7;
+      margin-top: -10px;
+    }
+
+    .choice-area {
+      display: flex;
+      gap: 40px;
       margin: 30px 0;
     }
 
-    button {
-      font-size: 50px;
-      width: 100px;
-      height: 100px;
-      margin: 10px;
-      border: 2px solid #555;
-      border-radius: 15px;
-      background-color: white;
+    .choice-btn {
+      width: 110px;
+      height: 110px;
+      font-size: 3.8rem;
+      border: 3px solid;
+      border-radius: 24px;
+      background: transparent;
+      color: white;
       cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    button:hover {
-      background-color: #e0e0e0;
+    .rock    { border-color: #f87171; color: #fca5a5; }
+    .paper   { border-color: #60a5fa; color: #93c5fd; }
+    .scissors { border-color: #fbbf24; color: #fcd34d; }
+
+    .choice-btn:hover {
+      background: rgba(255,255,255,0.08);
+      transform: scale(1.12);
+    }
+
+    .choice-btn:active {
+      transform: scale(0.95);
     }
 
     #result {
-      font-size: 28px;
-      margin-top: 40px;
-      min-height: 50px;
-      color: #444;
+      font-size: 2.1rem;
+      font-weight: bold;
+      min-height: 80px;
+      text-align: center;
+      margin: 0 20px;
     }
 
-    #message {
-      font-size: 22px;
-      color: #666;
-      margin-top: 20px;
+    #vs {
+      font-size: 1.4rem;
+      opacity: 0.6;
+      margin: 10px 0;
+    }
+
+    .small {
+      font-size: 1rem;
+      opacity: 0.8;
+      margin-top: 8px;
     }
   </style>
 </head>
 <body>
 
-  <h1>Rock Paper Scissors</h1>
+  <h1>ROCK • PAPER • SCISSORS</h1>
+  <div class="subtitle">choose your fighter</div>
 
-  <div class="buttons">
-    <button onclick="play('Rock')">✊ Rock</button>
-    <button onclick="play('Paper')">✋ Paper</button>
-    <button onclick="play('Scissors')">✌ Scissors</button>
+  <div class="choice-area">
+    <button class="choice-btn rock"    onclick="play('Rock')">✊</button>
+    <button class="choice-btn paper"   onclick="play('Paper')">✋</button>
+    <button class="choice-btn scissors" onclick="play('Scissors')">✌</button>
   </div>
 
-  <div id="result">Click any button to play!</div>
-  <div id="message"></div>
+  <div id="result">Pick one!</div>
+  <div id="vs"></div>
+  <div class="small" id="explain"></div>
 
   <script>
-    function play(playerChoice) {
-      const choices = ["Rock", "Paper", "Scissors"];
-      const computerChoice = choices[Math.floor(Math.random() * 3)];
+    function play(player) {
+      const options = ["Rock", "Paper", "Scissors"];
+      const computer = options[Math.floor(Math.random() * 3)];
 
-      let resultText = "";
-      let messageText = `You chose: ${playerChoice}  |  Computer chose: ${computerChoice}`;
-
-      if (playerChoice === computerChoice) {
-        resultText = "It's a Tie!";
-      }
-      else if (
-        (playerChoice === "Rock" && computerChoice === "Scissors") ||
-        (playerChoice === "Paper" && computerChoice === "Rock") ||
-        (playerChoice === "Scissors" && computerChoice === "Paper")
+      let verdict = "";
+      
+      if (player === computer) {
+        verdict = "TIE";
+      } else if (
+        (player === "Rock"     && computer === "Scissors") ||
+        (player === "Paper"    && computer === "Rock")     ||
+        (player === "Scissors" && computer === "Paper")
       ) {
-        resultText = "You Win! 🎉";
-      }
-      else {
-        resultText = "Computer Wins 😔";
+        verdict = "YOU WIN!";
+      } else {
+        verdict = "YOU LOSE";
       }
 
-      document.getElementById("result").innerText = resultText;
-      document.getElementById("message").innerText = messageText;
-    }
+      document.getElementById("result").innerText = verdict;
+      document.getElementById("vs").innerText = player + "  vs  " + computer;
+      document.getElementById("explain").innerText = 
+        player + " " + (verdict.includes("WIN") ? "beats" : verdict === "TIE" ? "equals" : "loses to") + " " + computer;
+    }   
   </script>
 
 </body>
