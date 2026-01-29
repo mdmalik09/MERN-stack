@@ -1,0 +1,21 @@
+.navbar{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+}
+ul{
+    list-style: none;
+    background-color: pink;
+    padding: 10px;
+
+}
+li{
+    padding: 10px;
+    background-color: darkgray;
+    border-radius: 10px;
+}
+li:hover{
+    background-color: palevioletred;
+    padding: 10px;
+   
+}
